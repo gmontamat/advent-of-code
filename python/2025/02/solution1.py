@@ -43,6 +43,8 @@
 # Adding up all the invalid IDs in this example produces 1227775554.
 #
 # What do you get if you add up all of the invalid IDs?
+#
+# Note: this is a classic regex exercise. Use https://regex101.com/ to test your pattern.
 
 import sys
 import re
