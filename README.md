@@ -25,12 +25,13 @@ new programming languages.
 ```
 
 Replace `<language>` with the programming language (e.g., `python`, `rust`), `<year>` with the contest year
-(e.g., 2023), and `<ext>` with the appropriate file extension. Input should be provided to the solution via standard
+(e.g., `2023`), and `<ext>` with the appropriate file extension. Input should be provided to the solution via standard
 input, but example inputs are provided in each day's folder.
 
 ### Usage
 
-Run a solution by piping the input into the solution file. For example:
+Run a solution by piping the input into the solution script or binary. Run the code as you would do with your
+programming language's interpreter or compiled binary. For example, with `python`:
 
 ```shell
 cat input | python solution.py
