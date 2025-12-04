@@ -38,11 +38,12 @@ if __name__ == "__main__":
     # main loop
     jolts = []
     for bank in batteries:
+        # Note: we have to be smarter than nested for-loops here!
+        # To select the nth digit of the 12-digit number, pick the largest digit closest to the front of the bank that
+        # is not within the last (12-n) digits available.
+        # ... I forgot how to prove correctness for this greedy approach, sorry Algorithms professor!
         positions = []
         start_idx = 0
-        # Note: we have to be smarter than nested for-loops here!
-        # For each digit of the 12-digit number, select largest digit closer to the front of the bank
-        # ... I forgot how to prove correctness for this greedy approach, sorry Algorithms professor!
         for i in range(-11, 1):
             digit = max(bank[start_idx:len(bank) + i])
             idx = bank.index(digit, start_idx, len(bank) + i)
