@@ -43,16 +43,16 @@
 import sys
 
 if __name__ == "__main__":
-    # database piped to sys.stdin
-    all = []
+    # worksheet piped to sys.stdin
+    worksheet = []
     operators = []
     if not sys.stdin.isatty():
         for line in sys.stdin:
             # De-duplicate whitespace
-            all.append(" ".join(line.strip().split()).split(" "))
-    operators = all[-1]
+            worksheet.append(" ".join(line.strip().split()).split(" "))
+    operators = worksheet[-1]
     numbers = []
-    for row in all[:-1]:
+    for row in worksheet[:-1]:
         numbers.append([int(n) for n in row])
     grand_total = 0
     for i, operator in enumerate(operators):
@@ -64,5 +64,7 @@ if __name__ == "__main__":
             total = 1
             for row in numbers:
                 total *= row[i]
+        else:
+            raise ValueError(f"Unknown operator: {operator}")
         grand_total += total
     print(grand_total)

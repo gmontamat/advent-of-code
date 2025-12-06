@@ -29,18 +29,18 @@
 import sys
 
 if __name__ == "__main__":
-    # database piped to sys.stdin
-    all = []
+    # worksheet piped to sys.stdin
+    worksheet = []
     operators = []
     if not sys.stdin.isatty():
         for line in sys.stdin:
-            all.append(line)
-    operators = all[-1]
+            worksheet.append(line)
+    operators = worksheet[-1]
     # Add padding to the operators string (for the last set of numbers)
     operators = operators.rstrip("\n")
-    max_len = max(len(line) for line in all)
+    max_len = max(len(line) for line in worksheet)
     operators += " " * (max_len - len(operators))
-    operators += "!"
+    operators += "!"  # Not an operator but will trigger compute for the last set
     grand_total = 0
     # Track the operator to be used and its index
     operator = operators[0]
@@ -52,7 +52,7 @@ if __name__ == "__main__":
             # Use idx to build numbers, column by column
             numbers = [""] * (i - idx)
             for col in range(i - 1, idx - 1, -1):
-                for row in all[:-1]:
+                for row in worksheet[:-1]:
                     numbers[col % (i - idx)] += row[col].strip()
             if operator == "+":
                 # print(numbers)
