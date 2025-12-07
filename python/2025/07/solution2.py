@@ -86,7 +86,7 @@ if __name__ == "__main__":
     if not sys.stdin.isatty():
         for line in sys.stdin:
             manifold.append(list(line.strip()))
-    # main loop (this is dynamic programming, very similar to Project Euler #67)\
+    # main loop (this is dynamic programming, very similar to Project Euler #67)
     # 'ways' stores the number of paths you need to take to reach a certain position
     # in a row. We update it row by row. First, let's initialize with 0s except under S:
     ways = [0] * len(manifold[0])
@@ -100,8 +100,8 @@ if __name__ == "__main__":
             if value == "^":
                 ways[j] = 0  # can't reach a split
                 if j > 0:
-                    ways[j-1] += old_ways[j]
+                    ways[j - 1] += old_ways[j]
                 if j < len(manifold[0]) - 1:
-                    ways[j+1] += old_ways[j]
+                    ways[j + 1] += old_ways[j]
         # print(ways, "".join(row))
     print(sum(ways))

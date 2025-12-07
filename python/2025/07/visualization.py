@@ -103,9 +103,9 @@ def draw(all_ways, index):
     # Map normalized values to blue (low) -> red (high)
     # Blue: (0, 0, 255), Red: (255, 0, 0)
     rgb = np.zeros((arr.shape[0], arr.shape[1], 3), dtype=np.uint8)
-    rgb[..., 0] = (norm * 255).astype(np.uint8)         # Red channel increases with value
-    rgb[..., 1] = np.zeros_like(norm, dtype=np.uint8)   # Green channel stays 0
-    rgb[..., 2] = ((1 - norm) * 255).astype(np.uint8)   # Blue channel decreases with value
+    rgb[..., 0] = (norm * 255).astype(np.uint8)  # Red channel increases with value
+    rgb[..., 1] = np.zeros_like(norm, dtype=np.uint8)  # Green channel stays 0
+    rgb[..., 2] = ((1 - norm) * 255).astype(np.uint8)  # Blue channel decreases with value
     img = Image.fromarray(rgb, mode='RGB')
     img = img.resize((800, 800), resample=Image.NEAREST)
     img.save(f"{index:03d}.png")
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     if not sys.stdin.isatty():
         for line in sys.stdin:
             manifold.append(list(line.strip()))
-    # main loop (this is dynamic programming, very similar to Project Euler #67)\
+    # main loop (this is dynamic programming, very similar to Project Euler #67)
     # 'ways' stores the number of paths you need to take to reach a certain position
     # in a row. We update it row by row. First, let's initialize with 0s except under S:
     ways = [0] * len(manifold[0])

@@ -157,8 +157,8 @@ if __name__ == "__main__":
             elif col == "^" and manifold[prev_i][j] in ["|"]:
                 # count split
                 splits += 1
-                if j > 0 and manifold[prev_i + 1][j-1] not in ["^"]:
-                    manifold[prev_i + 1][j-1] = "|"
-                if j < len(row) - 1 and manifold[prev_i + 1][j+1] not in ["^"]:
+                if j > 0 and manifold[prev_i + 1][j - 1] not in ["^"]:
+                    manifold[prev_i + 1][j - 1] = "|"
+                if j < len(row) - 1 and manifold[prev_i + 1][j + 1] not in ["^"]:
                     manifold[prev_i + 1][j + 1] = "|"
     print(splits)
