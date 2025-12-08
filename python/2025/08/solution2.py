@@ -10,7 +10,6 @@
 #
 # Continue connecting the closest unconnected pairs of junction boxes together until they're all in the same circuit.
 # What do you get if you multiply together the X coordinates of the last two junction boxes you need to connect?
-#
 
 import sys
 
