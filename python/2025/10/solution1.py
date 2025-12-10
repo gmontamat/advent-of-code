@@ -96,13 +96,11 @@ if __name__ == "__main__":
     # Get elements
     indicators = []
     toggles = []
-    joltages = []
     for machine in machines:
         indicators.append(re.findall(r"\[(.*?)\]", machine)[0])
         toggles.append(
             [[int(x) for x in t.split(",")] for t in re.findall(r"\((.*?)\)", machine)]
         )
-        joltages.append(re.findall(r"\{(.*?)\}", machine))
     # main loop - bruteforce... I should do constrained optimization
     total = 0
     for indicator, toggle in zip(indicators, toggles):
