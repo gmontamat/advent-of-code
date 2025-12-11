@@ -116,7 +116,7 @@ if __name__ == "__main__":
     all_paths = 0
     for funnel_path in funnel_paths:
         funnel_path = funnel_path[1:]  # Ignore srv
-        # assumes dac and fft are found in steps 1 and 4 of the funnel paths
+        # assumes dac and fft are found in steps 1 and 4 of the funnel paths (use visualization)
         paths = 1
         for i, origin in enumerate(funnel_path[:-1]):
             dest = funnel_path[i + 1]
