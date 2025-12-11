@@ -52,17 +52,16 @@
 
 import sys
 
-PATHS = 0
 
-
-def dfs(nodes, path):
-    global PATHS
+def dfs(nodes, path, total):
     if path[-1] == "out":
-        PATHS += 1
+        total += 1
+        return total
     else:
         for _next in nodes[path[-1]]:
             if _next not in path:  # Avoid cycles
-                dfs(nodes, path + [_next])
+                total = dfs(nodes, path + [_next], total)
+        return total
 
 
 if __name__ == "__main__":
@@ -73,6 +72,5 @@ if __name__ == "__main__":
             origin = line.strip().split(":")[0]
             dest = line.strip().split(":")[1].strip().split(" ")
             nodes[origin] = dest
-    # dfs - advent of graphs - dfs works here
-    dfs(nodes, ["you"])
-    print(PATHS)
+    # advent of graphs - dfs works here
+    print(dfs(nodes, ["you"], 0))
