@@ -114,13 +114,14 @@
 
 
 import sys
+
 import cpmpy as cp
 import numpy as np
 
 
 def shape_to_np(piece_strs):
     # Converts list of strings to boolean numpy array, True if "#" or else False
-    return np.array([[c=='#' for c in row] for row in piece_strs])
+    return np.array([[c == "#" for c in row] for row in piece_strs])
 
 
 def all_unique_rotations(shape):
@@ -162,7 +163,7 @@ def solve_packing(grid_w, grid_h, piece_counts, piece_dict):
             for i in range(grid_h - sh + 1):
                 for j in range(grid_w - sw + 1):
                     mask = np.zeros(grid_shape, dtype=bool)
-                    mask[i:i + sh, j:j + sw] = shape
+                    mask[i : i + sh, j : j + sw] = shape
                     masks.append(mask)
         placement_masks.append(masks)
 
@@ -192,7 +193,9 @@ def solve_packing(grid_w, grid_h, piece_counts, piece_dict):
                 for placement_idx, mask in enumerate(placement_masks[piece_idx]):
                     if mask[i, j]:
                         cell_coverage.append(placement_vars[piece_idx][placement_idx])
-            model += cp.sum(cell_coverage) <= 1  # if we wanted full grid coverage use == 1
+            model += (
+                cp.sum(cell_coverage) <= 1
+            )  # if we wanted full grid coverage use == 1
 
     # Solve
     if model.solve():
@@ -217,8 +220,11 @@ if __name__ == "__main__":
                 shape_name = int(line.split(":")[0])
             elif ":" in line.strip() and "x" in line.strip():
                 grid_size = line.strip().split(":")[0]
-                width, height = int(grid_size.split("x")[0]), int(grid_size.split("x")[1])
-                grid_shapes = [int(c) for c in line.strip().split(":")[1].strip().split(" ")]
+                width = int(grid_size.split("x")[0])
+                height = int(grid_size.split("x")[1])
+                grid_shapes = [
+                    int(c) for c in line.strip().split(":")[1].strip().split(" ")
+                ]
                 grids.append((width, height, grid_shapes))
             elif load_shape:
                 shape.append(line.strip())
