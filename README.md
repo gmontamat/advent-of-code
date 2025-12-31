@@ -16,23 +16,21 @@ new programming languages.
 ```
 <language>/
   └── <year>/
+        ├── README.md
         ├── 01/
-        │    ├── solution.<ext>
+        │    ├── solution1.<ext>
+        │    ├── solution2.<ext>
         │    └── example
         ├── 02/
-        │    └── solution.<ext>
+        │    ├── solution1.<ext>
+        │    └── ...
         └── ...
 ```
 
 Replace `<language>` with the programming language (e.g., `python`, `rust`), `<year>` with the contest year
-(e.g., `2023`), and `<ext>` with the appropriate file extension. Input should be provided to the solution via standard
-input, but example inputs are provided in each day's folder.
+(e.g., `2023`), and `<ext>` with the appropriate file extension. Input should be provided to the solution, but example
+inputs are provided in each day's folder.
 
 ### Usage
 
-Run a solution by piping the input into the solution script or binary. Run the code as you would do with your
-programming language's interpreter or compiled binary. For example, with `python`:
-
-```shell
-cat input | python solution.py
-```
+Follow the README in each `<language>/<year>` directory for language-specific instructions.
