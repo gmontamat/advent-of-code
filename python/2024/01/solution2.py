@@ -15,9 +15,9 @@ def main(list1, list2):
 
 
 if __name__ == "__main__":
-    # get input file from 1st argument
     if len(sys.argv) < 2:
-        print("Usage: solution1.py <file>")
+        print("Usage: solution2.py <file>")
+        sys.exit(0)
     file_path = sys.argv[1]
     list1 = []
     list2 = []
