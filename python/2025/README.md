@@ -9,7 +9,15 @@ How would I describe the experience in a single word: **humbling**.
 
 ## Usage
 
-Use your system's `python` or a virtual environment. Run a solution by piping the input into the solution script:
+Use your system's `python` or a virtual environment:
+
+```shell
+python -m venv venv
+source venv/bin/activate
+pip install numpy tqdm scipy cpmpy
+```
+
+Run a solution by piping the input into the solution script:
 
 ```shell
 cat input | python solution1.py

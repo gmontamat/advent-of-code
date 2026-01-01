@@ -1,6 +1,6 @@
 # Advent of Code 2024
 
-** Not following advent calendar **
+**Not following advent calendar**
 
 ## Usage
 
