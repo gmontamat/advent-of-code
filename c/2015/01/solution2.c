@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-
 // Dynamic array (based on tsoding's std::vector)
 typedef struct {
     char *items;
@@ -35,7 +34,7 @@ void solve(String input) {
 }
 
 int main(int argc, char **argv) {
-    if (argc < 2) return 1;  // usage ./solution1 input
+    if (argc < 2) return 1;  // usage ./solution2.out input
 
     FILE *f = fopen(argv[1], "r");
     if (!f) return 1;
@@ -43,6 +42,7 @@ int main(int argc, char **argv) {
     String input = {0};
     int c;
     while ((c = fgetc(f)) != EOF) da_append(input, c);
+    fclose(f);
 
     solve(input);
     return 0;
