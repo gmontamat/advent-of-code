@@ -1,16 +1,15 @@
-# Makefile at repo root
-
 CC := cc
-CFLAGS := -O2 -Wall -Wextra -std=c11
+CFLAGS := -O2 -Wall -Wextra -pedantic -std=c11
 
-.PHONY: run
-# Run like:
-#   make run DAY=01 PART=1 IN=input
-#   make run DAY=04 PART=2 IN=example
-run:
+.PHONY: compile run clean
+
+# Build only
+compile:
 	@cd $(DAY) && $(CC) $(CFLAGS) -o solution$(PART).out solution$(PART).c
+
+# Build + run
+run: compile
 	@cd $(DAY) && ./solution$(PART).out $(IN)
 
-.PHONY: clean
 clean:
 	@find . -type f -name '*.out' -exec rm -f {} +

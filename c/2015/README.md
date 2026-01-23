@@ -4,7 +4,9 @@
 
 ## Usage
 
+The [Makefile](./Makefile) can help compile and run:
+
 ```shell
 # Run first day's solution 1 with "example" as input
-make 01 1 example
+make run DAY=01 PART=1 INPUT=example
 ```
