@@ -18,7 +18,8 @@ def main(problems):
     # X <= x_a * a + x_b * b <= X
     # Y <= y_a * a + y_b * b <= Y
     # int a, b
-    # lazy me didn't know it's a 2x2 linear system
+    # lazy me didn't notice it's a 2x2 linear system
+    # no need for mixed integer linear programming here
     tokens = 0
     for problem in problems:
         # print(problem)
