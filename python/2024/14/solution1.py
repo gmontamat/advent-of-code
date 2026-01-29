@@ -3,8 +3,8 @@
 # requires-python = ">=3.8"
 # ///
 
-import sys
 import re
+import sys
 
 
 def main(robots, height=7, width=11, seconds=100):
@@ -50,14 +50,18 @@ if __name__ == "__main__":
     robots = []
     with open(file_path, "r") as fin:
         for line in fin:
-            parsed = re.fullmatch(r"p=(-?\d+),(-?\d+)\s+v=(-?\d+),(-?\d+)", line.strip())
+            parsed = re.fullmatch(
+                r"p=(-?\d+),(-?\d+)\s+v=(-?\d+),(-?\d+)", line.strip()
+            )
             px, py, vx, vy = map(int, parsed.groups())
-            robots.append({
-                "px": px,
-                "py": py,
-                "vx": vx,
-                "vy": vy,
-            })
+            robots.append(
+                {
+                    "px": px,
+                    "py": py,
+                    "vx": vx,
+                    "vy": vy,
+                }
+            )
     if "example" in file_path:
         height, width = 7, 11
     else:

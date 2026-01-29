@@ -7,13 +7,12 @@
 # ]
 # ///
 
-import sys
 import re
+import sys
 import zlib
 
 import numpy as np
 from PIL import Image
-
 
 
 def compression_ratio(mask):
@@ -23,7 +22,7 @@ def compression_ratio(mask):
 
 
 def main(robots, height=7, width=11, seconds=9999):
-    best_compression = 1.
+    best_compression = 1.0
     best_second = None
     for s in range(seconds):
         grid = np.zeros((height, width), dtype=np.uint8)
@@ -43,20 +42,24 @@ def main(robots, height=7, width=11, seconds=9999):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: solution1.py <file>")
+        print("Usage: solution2.py <file>")
         sys.exit(0)
     file_path = sys.argv[1]
     robots = []
     with open(file_path, "r") as fin:
         for line in fin:
-            parsed = re.fullmatch(r"p=(-?\d+),(-?\d+)\s+v=(-?\d+),(-?\d+)", line.strip())
+            parsed = re.fullmatch(
+                r"p=(-?\d+),(-?\d+)\s+v=(-?\d+),(-?\d+)", line.strip()
+            )
             px, py, vx, vy = map(int, parsed.groups())
-            robots.append({
-                "px": px,
-                "py": py,
-                "vx": vx,
-                "vy": vy,
-            })
+            robots.append(
+                {
+                    "px": px,
+                    "py": py,
+                    "vx": vx,
+                    "vy": vy,
+                }
+            )
     if "example" in file_path:
         height, width = 7, 11
     else:
