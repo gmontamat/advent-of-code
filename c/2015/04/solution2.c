@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
         unsigned char digest[MD5_DIGEST_LENGTH];
         MD5((const unsigned char *)s, strlen(s), digest);
 
-        // Check if it has trailing zeros
+        // Check if it has leading zeros
         if (md5_has_6_leading_hex_zeros(digest)) {
             printf("%d\n", num);
             break;
