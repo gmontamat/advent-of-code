@@ -26,8 +26,7 @@ def get_neighbors(grid, position, orientation):
 
 
 def estimate_distance(position, end):
-    """Manhattan distance + 1 penalty
-    """
+    """Manhattan distance + 1 penalty"""
     x, y = position
     x_end, y_end = end
     if abs(y - y_end) > 0 and abs(x - x_end) > 0:
@@ -43,7 +42,9 @@ def astar(grid, start, end, initial_orientation):
     """
     open_set = []
     # initial orientation (1, 0) facing east
-    heapq.heappush(open_set, (estimate_distance(start, end), start, initial_orientation))
+    heapq.heappush(
+        open_set, (estimate_distance(start, end), start, initial_orientation)
+    )
     f_score = {start: estimate_distance(start, end)}
     g_score = {start: 0}
     while open_set:
@@ -70,7 +71,15 @@ def dfs(grid, path, end, orientation, score, max_score, all_paths):
     for new_position, new_orientation in get_neighbors(grid, path[-1], orientation):
         new_score = score + 1 + (1000 if new_orientation != orientation else 0)
         if new_score + astar(grid, new_position, end, new_orientation) <= max_score:
-            dfs(grid, path + (new_position,), end, new_orientation, new_score, max_score, all_paths)
+            dfs(
+                grid,
+                path + (new_position,),
+                end,
+                new_orientation,
+                new_score,
+                max_score,
+                all_paths,
+            )
 
 
 def main(grid):
@@ -82,15 +91,7 @@ def main(grid):
     max_score = astar(grid, (x_start, y_start), (x_end, y_end), (1, 0))
     # Use DFS to get all paths
     all_paths = []
-    dfs(
-        grid,
-        ((x_start, y_start),),
-        (x_end, y_end),
-        (1, 0),
-        0,
-        max_score,
-        all_paths
-    )
+    dfs(grid, ((x_start, y_start),), (x_end, y_end), (1, 0), 0, max_score, all_paths)
     nodes = set([])
     for path in all_paths:
         for node in path:

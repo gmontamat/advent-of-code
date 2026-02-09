@@ -26,8 +26,7 @@ def get_neighbors(grid, position, orientation):
 
 
 def estimate_distance(position, end):
-    """Manhattan distance + 1 penalty
-    """
+    """Manhattan distance + 1 penalty"""
     x, y = position
     x_end, y_end = end
     if abs(y - y_end) > 0 and abs(x - x_end) > 0:
