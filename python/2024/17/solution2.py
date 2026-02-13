@@ -59,16 +59,29 @@ def run(reg_a, reg_b, reg_c, program):
 
 
 def main(reg_a, reg_b, reg_c, program):
-    reg_a = 35184372088832  # smallest number that produces output of len(program)
-    # found it by increasing reg_a *= 2 and then brute-forcing
-    n = len(program)
-    while n > -1:
-        while program[n - 1] != run(reg_a, reg_b, reg_c, program)[n - 1]:
-            reg_a += 8 ** (n - 1)
-        n -= 1
-    while program != run(reg_a, reg_b, reg_c, program):
-        reg_a += 1
+    reg_a = 1
+    while True:
+        result = run(reg_a, reg_b, reg_c, program)
+        if result == program:
+            break
+        if len(result) < len(program):
+            reg_a *= 2
+        elif len(result) == len(program):
+            for n in range(len(program) - 1, -1, -1):
+                if program[n] != result[n]:
+                    reg_a += 8 ** n
+                    break
     return reg_a
+    # OLD METHOD - more bruteforce
+    # reg_a = 35184372088832  # the smallest number that produces output of len(program)
+    # n = len(program)
+    # while n > -1:
+    #     while program[n - 1] != run(reg_a, reg_b, reg_c, program)[n - 1]:
+    #         reg_a += 8 ** (n - 1)
+    #     n -= 1
+    # while program != run(reg_a, reg_b, reg_c, program):
+    #     reg_a += 1
+    # return reg_a
 
 
 if __name__ == "__main__":
