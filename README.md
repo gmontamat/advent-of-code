@@ -1,7 +1,7 @@
 # Advent of Code
 
-This repository contains my solutions to Advent of Code puzzles. I use it to practice my coding skills and to explore
-new programming languages.
+This repository contains my solutions to [Advent of Code](https://adventofcode.com) puzzles. I use it to practice my
+coding skills and to explore new programming languages.
 
 ## Repository Structure
 
