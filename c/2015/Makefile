@@ -5,8 +5,8 @@ CFLAGS := -O2 -Wall -Wextra -pedantic -std=c11
 
 # OpenSSL (only used for DAY=04)
 OPENSSL_PREFIX := $(shell (command -v brew >/dev/null 2>&1 && brew --prefix openssl@3 2>/dev/null) || \
-                         (command -v pkg-config >/dev/null 2>&1 && pkg-config --variable=prefix openssl 2>/dev/null) || \
-                         echo /usr)
+                          (command -v pkg-config >/dev/null 2>&1 && pkg-config --variable=prefix openssl 2>/dev/null) || \
+                          echo /usr)
 OPENSSL_CFLAGS := -I"$(OPENSSL_PREFIX)/include" -Wno-deprecated-declarations
 OPENSSL_LDFLAGS := -L"$(OPENSSL_PREFIX)/lib" -lcrypto
 
