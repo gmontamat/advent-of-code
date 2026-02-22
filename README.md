@@ -3,6 +3,8 @@
 This repository contains my solutions to [Advent of Code](https://adventofcode.com) puzzles. I use it to practice my
 coding skills and to explore new programming languages.
 
+I avoid using LLMs here to work on my problem-solving skills.
+
 ## Repository Structure
 
 - Each programming language has its own top-level directory.
