@@ -3,7 +3,6 @@
 # requires-python = ">=3.8"
 # ///
 
-
 import itertools
 import sys
 
@@ -57,13 +56,14 @@ def get_paths(start, end, keypad):
                 valid = False
                 break
         if valid:
-            valid_paths.append(path)
+            valid_paths.append(path + "A")
     return valid_paths
 
 
 def main(codes):
+    # dynamic programming solution
     hash_table = {}
-    # construct (robot, start, end) -> minimum presses needed
+    # construct (robot#, start, end) -> minimum presses you press for robot to go from start to end and press it
     for start in ["^", "<", "v", ">", "A"]:
         for end in ["^", "<", "v", ">", "A"]:
             hash_table[(0, start, end)] = 1
@@ -77,15 +77,14 @@ def main(codes):
                 paths = get_paths(start, end, robot)
                 min_presses = float("inf")
                 for path in paths:
-                    path += "A"
                     presses = 0
-                    last = "A"
+                    head = "A"
                     for k in path:
-                        if last == k:
+                        if head == k:
                             presses += 1
                         else:
-                            presses += hash_table[(robot_number - 1, last, k)]
-                            last = k
+                            presses += hash_table[(robot_number - 1, head, k)]
+                            head = k
                     if presses < min_presses:
                         min_presses = presses
                 hash_table[(robot_number, start, end)] = min_presses
@@ -98,15 +97,14 @@ def main(codes):
             paths = get_paths(start, end, door)
             min_presses = float("inf")
             for path in paths:
-                path += "A"
                 presses = 0
-                last = "A"
+                head = "A"
                 for k in path:
-                    if k == last:
+                    if k == head:
                         presses += 1
                     else:
-                        presses += hash_table[(25, last, k)]
-                        last = k
+                        presses += hash_table[(25, head, k)]
+                        head = k
                 if presses < min_presses:
                     min_presses = presses
             hash_table[(26, start, end)] = min_presses
@@ -115,10 +113,10 @@ def main(codes):
     for code in codes:
         num = int("".join([d for d in code if d.isdigit()]))
         presses = 0
-        current = "A"
+        head = "A"
         for c in code:
-            presses += hash_table[(26, current, c)]
-            current = c
+            presses += hash_table[(26, head, c)]
+            head = c
         # print(num, presses)
         total += num * presses
     return total
@@ -126,7 +124,7 @@ def main(codes):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: solution1.py <file>")
+        print("Usage: solution2.py <file>")
         sys.exit(0)
     file_path = sys.argv[1]
     codes = []
