@@ -6,9 +6,9 @@
 # ]
 # ///
 
-import sys
 import json
 import random
+import sys
 
 import networkx as nx
 
@@ -19,7 +19,7 @@ def to_decimal(variable, output_map):
     decimal = 0
     for node in sorted(nodes, reverse=True):
         if output_map[node]:
-            decimal += 2 ** power
+            decimal += 2**power
         power -= 1
     return decimal
 
@@ -32,6 +32,7 @@ def to_binary(decimal, prefix="z"):
         decimal = decimal // 2
         i += 1
     return result
+
 
 def to_string(binary, prefix="z"):
     return "".join(["1" if binary[f"{prefix}{i:02d}"] else "0" for i in range(45)])
@@ -123,8 +124,10 @@ def main(output_map, operations, n=100):
                 # Swap output cables
                 # fixed_operations = copy.deepcopy(operations)
                 swapped_operations = json.loads(json.dumps(operations))
-                swapped_operations[node1], swapped_operations[node2] = \
-                    swapped_operations[node2], swapped_operations[node1]
+                swapped_operations[node1], swapped_operations[node2] = (
+                    swapped_operations[node2],
+                    swapped_operations[node1],
+                )
                 try:
                     top_sort = build_dag(swapped_operations)
                 except nx.exception.NetworkXUnfeasible:
@@ -134,10 +137,12 @@ def main(output_map, operations, n=100):
                     z = run(output_map, swapped_operations, top_sort)
                     if to_decimal("z", z) != correct_z:
                         valid_z = to_binary(correct_z)
-                        cumulative_errors += sum([
-                            1 if z[f"z{i:02d}"] != valid_z[f"z{i:02d}"] else 0
-                            for i in range(45)
-                        ])
+                        cumulative_errors += sum(
+                            [
+                                1 if z[f"z{i:02d}"] != valid_z[f"z{i:02d}"] else 0
+                                for i in range(45)
+                            ]
+                        )
                 # print(node1, node2, cumulative_errors, minimum_errors)
                 # Check if minimum
                 if cumulative_errors < minimum_errors:
@@ -146,8 +151,10 @@ def main(output_map, operations, n=100):
         swapped.append(best_pair[0])
         swapped.append(best_pair[1])
         # print(best_pair, minimum_errors)
-        operations[best_pair[0]], operations[best_pair[1]] = \
-            operations[best_pair[1]], operations[best_pair[0]]
+        operations[best_pair[0]], operations[best_pair[1]] = (
+            operations[best_pair[1]],
+            operations[best_pair[0]],
+        )
     return ",".join(sorted(swapped))
 
 
@@ -176,6 +183,6 @@ if __name__ == "__main__":
                 operations[output] = {
                     "input1": input1,
                     "input2": input2,
-                    "operand": operand
+                    "operand": operand,
                 }
     print(main(output_map, operations))

@@ -17,7 +17,7 @@ def to_decimal(variable, output_map):
     decimal = 0
     for node in sorted(nodes, reverse=True):
         if output_map[node]:
-            decimal += 2 ** power
+            decimal += 2**power
         power -= 1
     return decimal
 
@@ -71,6 +71,6 @@ if __name__ == "__main__":
                 operations[output] = {
                     "input1": input1,
                     "input2": input2,
-                    "operand": operand
+                    "operand": operand,
                 }
     print(main(output_map, operations))
