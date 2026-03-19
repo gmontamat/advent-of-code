@@ -1,9 +1,10 @@
 # Advent of Code
 
-This repository contains my solutions to [Advent of Code](https://adventofcode.com) puzzles. I use it to practice my
-coding skills and to explore new programming languages.
+This repository contains my solutions to [Advent of Code](https://adventofcode.com) puzzles. I solve them to:
 
-I avoid using LLMs here to work on my problem-solving skills.
+1. Practice coding skills without using LLMs (this is not work, I even turn off AI-assisted autocompletion)
+2. Sharpen problem-solving skills, keeping my brain at work
+3. Explore or revisit a particular programming language
 
 ## Repository Structure
 
