@@ -51,7 +51,8 @@ def build_dag(operations):
 
 
 def run(output_map, operations, top_sort):
-    output_map = json.loads(json.dumps(output_map))  # copy map to not affect it
+    # Copy output_map so as not to modify original input
+    output_map = json.loads(json.dumps(output_map))
     for node in top_sort:
         if node not in output_map:
             input1 = output_map[operations[node]["input1"]]
@@ -70,10 +71,10 @@ def main(output_map, operations, n=100):
     """
     'Montecarlo Simulation' approach:
       - Simulate N xs and ys (and compute correct sum z)
-      - For all pairs of cables
-      - Compute total bits incorrect (obtained z vs correct z)
+      - For all pairs of cables:
+        - Swap cables and compute total bits incorrect (obtained z vs correct z)
       - Select pair which minimizes incorrect bits
-      - Repeat
+      - Repeat 4 times
     Required improvement: filter the pairs of gates to be swapped
     """
     # Create N different inputs
