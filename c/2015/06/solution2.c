@@ -30,7 +30,7 @@ void turnOff(int32_t grid[][GRID_WIDTH], int32_t xMin, int32_t yMin, int32_t xMa
     }
 }
 
-int countOn(int32_t grid[][GRID_WIDTH]) {
+int computeBrightness(int32_t grid[][GRID_WIDTH]) {
     int32_t brightness = 0;
     for (size_t i=0; i<GRID_HEIGHT; ++i) {
         for (size_t j=0; j<GRID_WIDTH; ++j) {
@@ -75,6 +75,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    printf("%d\n", countOn(grid));
+    printf("%d\n", computeBrightness(grid));
     return 0;
 }
