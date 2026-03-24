@@ -8,7 +8,8 @@
 #define STB_DS_IMPLEMENTATION
 #include "stb_ds.h"
 
-#define BUFFER_SIZE 256
+#define MAX_LINES 512
+#define MAX_LENGTH 64
 #define OPERATOR_SIZE 8
 
 bool isNumber(char *string) {
@@ -24,7 +25,8 @@ int main(int argc, char **argv) {
     // Use stb_ds hash map as a dict
     struct { char *key; uint16_t value; } *circuit = NULL;
 
-    char buffer[BUFFER_SIZE];
+    char buffer[MAX_LINES][MAX_LENGTH];
+    size_t line = 0;
     char operatorA[OPERATOR_SIZE], operatorB[OPERATOR_SIZE], output[OPERATOR_SIZE];
     char *endptr;
     uint16_t valueA, valueB;
@@ -33,14 +35,19 @@ int main(int argc, char **argv) {
     FILE *f = fopen(argv[1], "r");
     if (!f) return 1;
 
+    while (fgets(buffer[line], MAX_LENGTH, f) != NULL && line < MAX_LINES) {
+        // Optional: Remove the trailing newline character if necessary
+        buffer[line][strcspn(buffer[line], "\n")] = '\0';
+        line++;
+    }
+
+    fclose(f);
+
     while (!complete) {
         complete = true;
-        fseek(f, 0, SEEK_SET);
-        while (fgets(buffer, BUFFER_SIZE, f) != NULL) {
-            buffer[strcspn(buffer, "\n")] = '\0';  // Remove trailing newline
-
-            if (strstr(buffer, "AND") != NULL) {
-                sscanf(buffer, "%s AND %s -> %s", operatorA, operatorB, output);
+        for (size_t i=0; i<line; ++i) {
+            if (strstr(buffer[i], "AND") != NULL) {
+                sscanf(buffer[i], "%s AND %s -> %s", operatorA, operatorB, output);
                 if (shgeti(circuit, output) > -1) continue;  // Skip if already solved
                 // Get operatorA value
                 if (isNumber(operatorA)) {
@@ -63,8 +70,8 @@ int main(int argc, char **argv) {
                 char *key = malloc(strlen(output) + 1);
                 strcpy(key, output);
                 shput(circuit, key, valueA & valueB);
-            } else if (strstr(buffer, "OR") != NULL) {
-                sscanf(buffer, "%s OR %s -> %s", operatorA, operatorB, output);
+            } else if (strstr(buffer[i], "OR") != NULL) {
+                sscanf(buffer[i], "%s OR %s -> %s", operatorA, operatorB, output);
                 if (shgeti(circuit, output) > -1) continue;  // Skip if already solved
                 // Get operatorA value
                 if (isNumber(operatorA)) {
@@ -87,8 +94,8 @@ int main(int argc, char **argv) {
                 char *key = malloc(strlen(output) + 1);
                 strcpy(key, output);
                 shput(circuit, key, valueA | valueB);
-            } else if (strstr(buffer, "LSHIFT") != NULL) {
-                sscanf(buffer, "%s LSHIFT %s -> %s", operatorA, operatorB, output);
+            } else if (strstr(buffer[i], "LSHIFT") != NULL) {
+                sscanf(buffer[i], "%s LSHIFT %s -> %s", operatorA, operatorB, output);
                 if (shgeti(circuit, output) > -1) continue;  // Skip if already solved
                 // Get operatorA value
                 if (isNumber(operatorA)) {
@@ -111,8 +118,8 @@ int main(int argc, char **argv) {
                 char *key = malloc(strlen(output) + 1);
                 strcpy(key, output);
                 shput(circuit, key, valueA << valueB);
-            } else if (strstr(buffer, "RSHIFT") != NULL) {
-                sscanf(buffer, "%s RSHIFT %s -> %s", operatorA, operatorB, output);
+            } else if (strstr(buffer[i], "RSHIFT") != NULL) {
+                sscanf(buffer[i], "%s RSHIFT %s -> %s", operatorA, operatorB, output);
                 if (shgeti(circuit, output) > -1) continue;  // Skip if already solved
                 // Get operatorA value
                 if (isNumber(operatorA)) {
@@ -135,8 +142,8 @@ int main(int argc, char **argv) {
                 char *key = malloc(strlen(output) + 1);
                 strcpy(key, output);
                 shput(circuit, key, valueA >> valueB);
-            } else if (strstr(buffer, "NOT") != NULL) {
-                sscanf(buffer, "NOT %s -> %s", operatorA, output);
+            } else if (strstr(buffer[i], "NOT") != NULL) {
+                sscanf(buffer[i], "NOT %s -> %s", operatorA, output);
                 if (shgeti(circuit, output) > -1) continue;  // Skip if already solved
                 // Get operatorA value
                 if (isNumber(operatorA)) {
@@ -151,7 +158,7 @@ int main(int argc, char **argv) {
                 strcpy(key, output);
                 shput(circuit, key, ~valueA);
             } else {
-                sscanf(buffer, "%s -> %s", operatorA, output);
+                sscanf(buffer[i], "%s -> %s", operatorA, output);
                 if (shgeti(circuit, output) > -1) continue;  // Skip if already solved
                 // Get operatorA value
                 if (isNumber(operatorA)) {
