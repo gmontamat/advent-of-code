@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -O2 -Wall -Wextra -pedantic -std=c11
+CFLAGS := -O2 -Wall -Wextra -pedantic -std=c23
 
 .PHONY: compile run clean
 
