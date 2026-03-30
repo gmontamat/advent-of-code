@@ -6,7 +6,7 @@
 #include <string.h>
 
 #define STB_DS_IMPLEMENTATION
-#include "stb_ds.h"
+#include "../thirdparty/stb_ds.h"
 
 #define MAX_LINES 512
 #define MAX_LENGTH 64

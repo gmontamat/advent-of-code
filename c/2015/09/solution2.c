@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define STB_DS_IMPLEMENTATION
-#include "stb_ds.h"
+#include "../thirdparty/stb_ds.h"
 
 #define CITY_SIZE 32
 
