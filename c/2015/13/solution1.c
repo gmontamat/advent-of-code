@@ -22,7 +22,7 @@ int32_t dfs(FeelingsTable *table, size_t *array, int32_t current_happiness, int3
         if (current_happiness > maximum_happiness) return current_happiness;
         else return maximum_happiness;
     }
-    // Recursion over all pairs (possible optimization: sort based on happiness)
+    // Recursion over all pairs
     for (size_t person=1; person<total_people; ++person) {
         // Check if person not in array
         bool found = false;
@@ -65,8 +65,11 @@ int main(int argc, char **argv) {
 
     char person_a[BUFFER_SIZE], person_b[BUFFER_SIZE];
     char happiness_sign[BUFFER_SIZE];
-    // Note: we can't prune the search because there's 2 signs,
-    // next time (if we get a larger input, normalize all)
+    // DFS note: we can't prune the search because there's 2 signs,
+    // For larger input, normalize happiness by adding abs(min(happiness))
+    // to all so that minumum is zero. Then change signs to minimize
+    // "sadness" so as to prune current branch of DFS. You can also
+    // sort by sadness during the recursion step.
     int32_t happiness;
 
     while (fscanf(f, "%s would %s %d happiness units by sitting next to %s",
