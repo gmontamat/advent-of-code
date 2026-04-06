@@ -33,12 +33,10 @@ int32_t findTotal(size_t idx, size_t ingredients, size_t teaspoons,
     }
     // Recursion
     for (size_t q=0; q<=teaspoons; ++q) {
-        size_t *next_mix = malloc(ingredients * sizeof *next_mix);
-        for (size_t j=0; j<idx; ++j) next_mix[j] = mix[j];
-        next_mix[idx] = q;
+        mix[idx] = q;
         max_score = findTotal(
             idx+1, ingredients, teaspoons-q,
-            next_mix, max_score, capacity, durability,
+            mix, max_score, capacity, durability,
             flavor, texture, calories
         );
     }
