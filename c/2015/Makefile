@@ -22,6 +22,9 @@ else ifeq ($(DAY),09)
 else ifeq ($(DAY),13)
   EXTRA_CFLAGS := -Wno-unsequenced
   EXTRA_LDFLAGS :=
+else ifeq ($(DAY),16)
+  EXTRA_CFLAGS := -Wno-unsequenced
+  EXTRA_LDFLAGS :=
 else
   EXTRA_CFLAGS :=
   EXTRA_LDFLAGS :=
