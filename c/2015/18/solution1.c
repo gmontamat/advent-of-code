@@ -3,9 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#define STB_DS_IMPLEMENTATION
-#include "../thirdparty/stb_ds.h"
-
 #define MAX_SIZE 100
 #define BUFFER_SIZE 128
 
