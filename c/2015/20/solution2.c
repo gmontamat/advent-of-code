@@ -38,7 +38,7 @@ uint32_t findHouse(uint32_t min_presents) {
 }
 
 int main(int argc, char **argv) {
-    if (argc < 2) return 1;  // usage ./solution1.out input
+    if (argc < 2) return 1;  // usage ./solution2.out input
 
     // Advent of divisors
     uint32_t num;
