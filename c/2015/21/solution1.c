@@ -7,10 +7,10 @@
 
 bool play(int32_t player_hp, int32_t player_att, int32_t player_def, int32_t enemy_hp, int32_t enemy_att, int32_t enemy_def) {
     // Simple battle
-    int32_t enemy_damage = MAX(1, player_att - enemy_def);
-    int32_t player_damage = MAX(1, enemy_att - player_def);
-    //if ((double)enemy_hp / (double)enemy_damage <= (double)player_hp / (double)player_damage) return true;
-    if (enemy_hp * player_damage <= player_hp * enemy_damage) return true;
+    int32_t damage2enemy = MAX(1, player_att - enemy_def);
+    int32_t damage2player = MAX(1, enemy_att - player_def);
+    //if ((double)enemy_hp / (double)damage2enemy <= (double)player_hp / (double)damage2player) return true;
+    if (enemy_hp * damage2player <= player_hp * damage2enemy) return true;
     return false;
     // Complex battle loop (slow!)
     // while (1) {
