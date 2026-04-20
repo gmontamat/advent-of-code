@@ -76,13 +76,18 @@ int32_t dfs(int32_t player_hp, int32_t player_mana, int32_t boss_hp, int32_t bos
                 min_spent = dfs(
                     next_player_hp, next_player_mana, next_boss_hp, boss_dmg,
                     next_shield_turns, next_poison_turns, next_recharge_turns,
-                    next_mana_spent, min_spent, false);
+                    next_mana_spent, min_spent, false
+                );
             }
         }
     } else {
         player_hp -= MAX(boss_dmg - player_armor, 1);
         if (player_hp <= 0) return min_spent;  // player loses
-        min_spent = dfs(player_hp, player_mana, boss_hp, boss_dmg, shield_turns, poison_turns, recharge_turns, mana_spent, min_spent, true);
+        min_spent = dfs(
+            player_hp, player_mana, boss_hp, boss_dmg,
+            shield_turns, poison_turns, recharge_turns,
+            mana_spent, min_spent, true
+        );
     }
     return min_spent;
 }
@@ -102,7 +107,6 @@ int main(int argc, char **argv) {
     }
 
     int32_t boss_hp, boss_dmg;
-
     if (fscanf(f, "Hit Points: %d\n", &boss_hp) != 1) return 1;
     if (fscanf(f, "Damage: %d\n", &boss_dmg) != 1) return 1;
 
