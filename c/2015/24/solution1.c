@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
     uint64_t min_entanglement = UINT64_MAX;
 
     // Read package weights
-    while (fscanf(f, "%lu", &weight) == 1) {
+    while (fscanf(f, "%llu", &weight) == 1) {
         arrput(weights, weight);
     }
     fclose(f);
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
     // Sort packages by weight (descending)
     qsort(weights, arrlen(weights), sizeof(uint64_t), compare);
     // Solve
-    printf("%lu\n", dfs(weights, assignments, 0, min_entanglement, sectionw));
+    printf("%llu\n", dfs(weights, assignments, 0, min_entanglement, sectionw));
     // printf(" (Group 1 packages: %td)\n", min_size);
     return 0;
 }
