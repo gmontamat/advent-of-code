@@ -14,17 +14,17 @@ int compare(const void* a, const void* b) {
     return 0;
 }
 
-uint64_t dfs(uint64_t *weights, int32_t *assignments, size_t item, uint64_t min_entanglement, uint64_t sectionw,
-             uint64_t *group_weights, uint64_t current_entanglement, size_t current_count, size_t packages) {
+uint64_t dfs(uint64_t *weights, size_t item, uint64_t min_entanglement, uint64_t sectionw, uint64_t *group_weights,
+             uint64_t current_entanglement, size_t current_count, size_t packages) {
     if (item == packages) {
         if (current_count < min_size) {
             min_size = current_count;
             min_entanglement = current_entanglement;
-            // printf("> %lu (%zu)\n", min_entanglement, min_size);
+            // printf("> %llu (%zu)\n", min_entanglement, min_size);
             return min_entanglement;
         } else if (current_count == min_size && current_entanglement < min_entanglement) {
             min_entanglement = current_entanglement;
-            // printf("> %lu (%zu)\n", min_entanglement, min_size);
+            // printf("> %llu (%zu)\n", min_entanglement, min_size);
             return min_entanglement;
         }
         return min_entanglement;
@@ -37,7 +37,6 @@ uint64_t dfs(uint64_t *weights, int32_t *assignments, size_t item, uint64_t min_
         if (i == 0 && current_count + 1 > min_size) continue;
         if (group_weights[i] + w > sectionw) continue;
         // Assign item to group i
-        assignments[item] = (int32_t)i;
         group_weights[i] += w;
         // Variables for recursion
         uint64_t next_entanglement = current_entanglement;
@@ -48,16 +47,15 @@ uint64_t dfs(uint64_t *weights, int32_t *assignments, size_t item, uint64_t min_
             if (next_entanglement >= min_entanglement) {
                 // Backtrack and continue
                 group_weights[i] -= w;
-                assignments[item] = -1;
                 continue;
             }
         }
         // Recursion and then backtrack
         min_entanglement = dfs(
-            weights, assignments, item + 1, min_entanglement, sectionw, group_weights,
-            next_entanglement, next_count, packages);
+            weights, item + 1, min_entanglement, sectionw, group_weights,
+            next_entanglement, next_count, packages
+        );
         group_weights[i] -= w;
-        assignments[item] = -1;
     }
     return min_entanglement;
 }
@@ -75,10 +73,8 @@ int main(int argc, char **argv) {
     // * Do not re-compute group weights (keep track and backtrack)
     uint64_t weights[BUFFER_SIZE];
     size_t packages = 0;
-    int32_t assignments[BUFFER_SIZE];
-    uint64_t min_entanglement = UINT64_MAX;
 
-    while (fscanf(f, "%lu", &weights[packages]) == 1) packages++;
+    while (fscanf(f, "%llu", &weights[packages]) == 1) packages++;
     fclose(f);
 
     uint64_t totalw = 0;
@@ -88,11 +84,10 @@ int main(int argc, char **argv) {
     // Sort packages by weight (descending)
     qsort(weights, packages, sizeof(uint64_t), compare);
 
-    for (size_t i = 0; i < packages; ++i) assignments[i] = -1;
-    uint64_t group_weights[4] = {0,0,0,0};
-    uint64_t entanglement = dfs(weights, assignments, 0, min_entanglement, sectionw, group_weights, 1, 0, packages);
+    uint64_t group_weights[4] = {0, 0, 0, 0};
+    uint64_t entanglement = dfs(weights, 0, UINT64_MAX, sectionw, group_weights, 1, 0, packages);
 
-    // printf("%lu (Group 1 packages: %zu)\n", entanglement, min_size);
-    printf("%lu\n", entanglement);
+    // printf("%llu (Group 1 packages: %zu)\n", entanglement, min_size);
+    printf("%llu\n", entanglement);
     return 0;
 }
