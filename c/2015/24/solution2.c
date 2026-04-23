@@ -4,7 +4,7 @@
 
 #define BUFFER_SIZE 32
 
-size_t min_size = 99;  // minimum size of group 1 tracked globally (minimum entanglement locally in the DFS call)
+size_t min_size = BUFFER_SIZE;  // minimum size of group 1 tracked globally (minimum entanglement locally in the DFS call)
 
 int compare(const void* a, const void* b) {
     uint64_t arg1 = *(const uint64_t*)a;
@@ -20,11 +20,11 @@ uint64_t dfs(uint64_t *weights, size_t item, uint64_t min_entanglement, uint64_t
         if (current_count < min_size) {
             min_size = current_count;
             min_entanglement = current_entanglement;
-            // printf("> %llu (%zu)\n", min_entanglement, min_size);
+            // printf("> %lu (%zu)\n", min_entanglement, min_size);
             return min_entanglement;
         } else if (current_count == min_size && current_entanglement < min_entanglement) {
             min_entanglement = current_entanglement;
-            // printf("> %llu (%zu)\n", min_entanglement, min_size);
+            // printf("> %lu (%zu)\n", min_entanglement, min_size);
             return min_entanglement;
         }
         return min_entanglement;
@@ -69,12 +69,12 @@ int main(int argc, char **argv) {
     // This is basically solution1.c with optimizations:
     // * Do not use dynamic arrays
     // * Do not re-compute number or packages (compute while reading and pass along)
-    // * Do not copy assignments (use -1 and backtrack)
+    // * Do not use assignments
     // * Do not re-compute group weights (keep track and backtrack)
     uint64_t weights[BUFFER_SIZE];
     size_t packages = 0;
 
-    while (fscanf(f, "%llu", &weights[packages]) == 1) packages++;
+    while (fscanf(f, "%lu", &weights[packages]) == 1) packages++;
     fclose(f);
 
     uint64_t totalw = 0;
@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
     uint64_t group_weights[4] = {0, 0, 0, 0};
     uint64_t entanglement = dfs(weights, 0, UINT64_MAX, sectionw, group_weights, 1, 0, packages);
 
-    // printf("%llu (Group 1 packages: %zu)\n", entanglement, min_size);
-    printf("%llu\n", entanglement);
+    // printf("%lu (Group 1 packages: %zu)\n", entanglement, min_size);
+    printf("%lu\n", entanglement);
     return 0;
 }
