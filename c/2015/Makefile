@@ -28,6 +28,9 @@ else ifeq ($(DAY),16)
 else ifeq ($(DAY),20)
   EXTRA_CFLAGS :=
   EXTRA_LDFLAGS := -lm
+else ifeq ($(DAY),24)
+  EXTRA_CFLAGS := -Wno-format
+  EXTRA_LDFLAGS :=
 else
   EXTRA_CFLAGS :=
   EXTRA_LDFLAGS :=
