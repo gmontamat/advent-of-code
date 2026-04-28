@@ -3,9 +3,24 @@ CFLAGS := -O2 -Wall -Wextra -pedantic -std=c17
 
 .PHONY: compile run clean
 
+# OpenSSL (only used for DAY=05)
+OPENSSL_PREFIX := $(shell (command -v brew >/dev/null 2>&1 && brew --prefix openssl@3 2>/dev/null) || \
+                          (command -v pkg-config >/dev/null 2>&1 && pkg-config --variable=prefix openssl 2>/dev/null) || \
+                          echo /usr)
+OPENSSL_CFLAGS := -I"$(OPENSSL_PREFIX)/include" -Wno-deprecated-declarations
+OPENSSL_LDFLAGS := -L"$(OPENSSL_PREFIX)/lib" -lcrypto
+
+ifeq ($(DAY),05)
+  EXTRA_CFLAGS := $(OPENSSL_CFLAGS)
+  EXTRA_LDFLAGS := $(OPENSSL_LDFLAGS)
+else
+  EXTRA_CFLAGS :=
+  EXTRA_LDFLAGS :=
+endif
+
 # Build only
 compile:
-	@cd $(DAY) && $(CC) $(CFLAGS) -o solution$(PART).out solution$(PART).c
+	@cd $(DAY) && $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -o solution$(PART).out solution$(PART).c $(EXTRA_LDFLAGS)
 
 # Build + run
 run: compile
