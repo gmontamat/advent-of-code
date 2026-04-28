@@ -17,9 +17,10 @@ bool md5_5zeros_6pos7val(const unsigned char digest[16], char *password) {
         if ((int)md5string[5] - 48 >= 0 && (int)md5string[5] - 48 < 8 &&
                 password[(int)md5string[5] - 48] == '*') {
             password[(int)md5string[5] - 48] = md5string[6];
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 int main(int argc, char **argv) {
