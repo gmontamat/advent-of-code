@@ -6,7 +6,7 @@
 #define BUFFER_SIZE 64
 
 bool decipher(char *name, int32_t sector_id) {
-    char deciphered[strlen(name)];
+    char deciphered[strlen(name)+1];
 
     for (size_t i=0; i<strlen(name); ++i) {
         if (name[i] == '-') deciphered[i] = ' ';
