@@ -13,6 +13,9 @@ OPENSSL_LDFLAGS := -L"$(OPENSSL_PREFIX)/lib" -lcrypto
 ifeq ($(DAY),05)
   EXTRA_CFLAGS := $(OPENSSL_CFLAGS)
   EXTRA_LDFLAGS := $(OPENSSL_LDFLAGS)
+else ifeq ($(DAY),09)
+  EXTRA_CFLAGS := -Wno-format
+  EXTRA_LDFLAGS :=
 else
   EXTRA_CFLAGS :=
   EXTRA_LDFLAGS :=
