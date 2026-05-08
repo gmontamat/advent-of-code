@@ -303,8 +303,9 @@ int main(int argc, char **argv) {
     sh_new_strdup(hash);   // use strdup for string management (slow)
     size_t elements = getElements(buffer, &hash);
     free(buffer);
-    int32_t generator[elements];  // Store floor of generators[element]
-    int32_t microchip[elements];  // Store floor of microchips[element]
+    // Add space for 2 more elements (problem statement)
+    int32_t generator[elements + 2];  // Store floor of generators[element]
+    int32_t microchip[elements + 2];  // Store floor of microchips[element]
 
     // Read line by line assigning values
     int32_t floor = 1;
@@ -333,7 +334,19 @@ int main(int argc, char **argv) {
     // }
     shfree(hash);
 
-    int32_t min_steps = dfs(generator, microchip, elements, 1, 0, INT32_MAX);
+    // An elerium generator.
+    // An elerium-compatible microchip.
+    // A dilithium generator.
+    // A dilithium-compatible microchip.
+    generator[elements] = 1;
+    microchip[elements] = 1;
+    elements++;
+    generator[elements] = 1;
+    microchip[elements] = 1;
+    elements++;
+
+    // limit search by optimistically assuming <100 steps
+    int32_t min_steps = dfs(generator, microchip, elements, 1, 0, 99);
     printf("%d\n", min_steps);
     return 0;
 }
