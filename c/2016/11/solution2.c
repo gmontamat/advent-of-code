@@ -103,30 +103,6 @@ int32_t dfs(int32_t *generator, int32_t *microchip, size_t elements,
     // Go up
     if (floor < 4) {
         for (size_t i = 0; i < elements; ++i) {
-            // Move one generator up 1 floor
-            if (generator[i] == floor) {
-                bool move = true;  // Can we move it from this floor?
-                // If same-type microchip and other generator in floor
-                if (microchip[i] == floor && otherGeneratorsInFloor(generator, i, elements, floor)) move = false;
-                // If other-type microchip without its generator in next floor
-                if (loneMicrochip(generator, microchip, i, elements, floor + 1)) move = false;
-                if (move) {
-                    generator[i] = floor + 1;
-                    min_steps = dfs(generator, microchip, elements, floor + 1, steps + 1, min_steps);
-                    generator[i] = floor;  // backtrack
-                }
-            }
-            // Move one microchip up 1 floor
-            if (microchip[i] == floor) {
-                bool move = true;  // Can we move it from this floor?
-                // If other-type generator but type-generator not in new floor
-                if (generator[i] != floor + 1 && otherGeneratorsInFloor(generator, i, elements, floor + 1)) move = false;
-                if (move) {
-                    microchip[i] = floor + 1;
-                    min_steps = dfs(generator, microchip, elements, floor + 1, steps + 1, min_steps);
-                    microchip[i] = floor;  // backtrack
-                }
-            }
             // Move microchip & generator (same type) up one floor
             if (generator[i] == floor && microchip[i] == floor) {
                 bool move = true;  // Can we move both from this floor?
@@ -170,6 +146,30 @@ int32_t dfs(int32_t *generator, int32_t *microchip, size_t elements,
                         microchip[i] = floor;  // backtrack
                         microchip[j] = floor;  // backtrack
                     }
+                }
+            }
+            // Move one generator up 1 floor
+            if (generator[i] == floor) {
+                bool move = true;  // Can we move it from this floor?
+                // If same-type microchip and other generator in floor
+                if (microchip[i] == floor && otherGeneratorsInFloor(generator, i, elements, floor)) move = false;
+                // If other-type microchip without its generator in next floor
+                if (loneMicrochip(generator, microchip, i, elements, floor + 1)) move = false;
+                if (move) {
+                    generator[i] = floor + 1;
+                    min_steps = dfs(generator, microchip, elements, floor + 1, steps + 1, min_steps);
+                    generator[i] = floor;  // backtrack
+                }
+            }
+            // Move one microchip up 1 floor
+            if (microchip[i] == floor) {
+                bool move = true;  // Can we move it from this floor?
+                // If other-type generator but type-generator not in new floor
+                if (generator[i] != floor + 1 && otherGeneratorsInFloor(generator, i, elements, floor + 1)) move = false;
+                if (move) {
+                    microchip[i] = floor + 1;
+                    min_steps = dfs(generator, microchip, elements, floor + 1, steps + 1, min_steps);
+                    microchip[i] = floor;  // backtrack
                 }
             }
         }
@@ -345,7 +345,9 @@ int main(int argc, char **argv) {
     microchip[elements] = 1;
     elements++;
 
-    // limit search by optimistically assuming <100 steps
+    // Optimization: compute all neighboring states, discarding invalid ones,
+    // and perform guided search (A*) instead of DFS.
+    // Here we limit our search by optimistically assuming <100 steps
     int32_t min_steps = dfs(generator, microchip, elements, 1, 0, 99);
     printf("%d\n", min_steps);
     return 0;
