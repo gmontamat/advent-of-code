@@ -19,6 +19,9 @@ else ifeq ($(DAY),09)
 else ifeq ($(DAY),11)
   EXTRA_CFLAGS := -Wno-unsequenced
   EXTRA_LDFLAGS :=
+else ifeq ($(DAY),14)
+  EXTRA_CFLAGS := $(OPENSSL_CFLAGS)
+  EXTRA_LDFLAGS := $(OPENSSL_LDFLAGS)
 else
   EXTRA_CFLAGS :=
   EXTRA_LDFLAGS :=
