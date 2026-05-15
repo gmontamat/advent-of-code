@@ -6,6 +6,13 @@ This repository contains my solutions to [Advent of Code](https://adventofcode.c
 2. Sharpen problem-solving skills, keeping my brain at work
 3. Explore or revisit a particular programming language
 
+> The current generation of AI has quickly exposed that most people have no clue how learning works. Learning
+> styles are a myth. You may have a preference in how you consume information, but you learn by doing.
+> Learning happens in the struggle. You must wrestle with a concept. You must be confused at times. It is not
+> optional. If you rely on an LLM to write most of your code, code that you do not have reps writing
+> yourself, you will not learn. You will not gain a deeper understanding.
+~ [brianmeeker.me - Have a Coherent AI Policy](https://brianmeeker.me/2026/05/14/have-a-coherent-ai-policy/)
+
 ## Repository Structure
 
 - Each programming language has its own top-level directory.
