@@ -45,6 +45,13 @@ int main(int argc, char **argv) {
     // We access grid[row][col] by doing grid[row * MAX_COLS + col]
     char *grid = malloc(rows * MAX_COLS * sizeof(char));
 
+    // To access with grid[row][col], malloc each row like so
+    // (should handle errors and free too):
+    //   char **grid = malloc(rows * sizeof(char *));
+    //   for (size_t i = 0; i < rows; i++) {
+    //       grid[i] = malloc(cols); // Malloc (cols * sizeof(char)) is the same
+    //   }
+
     while (fgets(grid, MAX_COLS, f) != NULL) {
         grid[0 * MAX_COLS + strcspn(grid, "\n")] = '\0';  // Remove trailing newline
         cols = strlen(grid);
