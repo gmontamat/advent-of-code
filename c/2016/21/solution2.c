@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+// #include <assert.h>
 
 #define BUFFER_SIZE 256
 
@@ -108,6 +109,16 @@ int main(int argc, char **argv) {
         buffer[i][strcspn(buffer[i], "\n")] = '\0';  // Remove trailing newline
         i++;
     }
+
+    // unit tests
+    // char pass[] = "abcdefgh";      // note: looks like the length of the string matters
+    // char testpass[] = "abcdefgh";  // rotation based on letter may not be bijective
+    // for (size_t k = 0; k < strlen(pass); ++k) {
+    //     char letter = pass[k];
+    //     rotateBasedOnLetter(testpass, letter);
+    //     rotateBasedOnLetterInv(testpass, letter);
+    //     assert(strcmp(pass, testpass) == 0);
+    // }
 
     for (int j = i-1; j >= 0; --j) {
         if (strncmp(buffer[j], "swap position", 13) == 0) {
