@@ -119,6 +119,7 @@ int32_t dfs(char grid[][width], char *path, int32_t steps, int32_t min_steps, si
     // printf("|%s|\n", path);
     size_t len = strlen(path);
     if (len == visits) {
+        steps += minDistance(grid, path[len-1], '0');
         if (steps < min_steps) {
             // printf("|%s| -> %d\n", path, steps);
             return steps;
@@ -150,7 +151,7 @@ int32_t dfs(char grid[][width], char *path, int32_t steps, int32_t min_steps, si
 }
 
 int main(int argc, char **argv) {
-    if (argc < 2) return 1;  // usage ./solution1.out input
+    if (argc < 2) return 1;  // usage ./solution2.out input
 
     FILE *f = fopen(argv[1], "r");
     if (!f) return 1;
