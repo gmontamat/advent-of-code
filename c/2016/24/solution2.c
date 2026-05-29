@@ -102,7 +102,7 @@ Position getNodePosition(char grid[][width], char node) {
 }
 
 int32_t minDistance(char grid[][width], char nodea, char nodeb) {
-    // memoize!
+    // memoize distance a->b
     Pair pair = {nodea, nodeb};
     if (hmgeti(memoization, pair) > -1) {
         return hmget(memoization, pair);
@@ -110,6 +110,10 @@ int32_t minDistance(char grid[][width], char nodea, char nodeb) {
     Position a = getNodePosition(grid, nodea);
     Position b = getNodePosition(grid, nodeb);
     int32_t distance = astar(grid, a, b);
+    hmput(memoization, pair, distance);
+    // Optimization: also memoize b->a
+    pair.a = nodeb;
+    pair.b = nodea;
     hmput(memoization, pair, distance);
     return distance;
 }
