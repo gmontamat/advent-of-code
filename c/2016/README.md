@@ -1,11 +1,12 @@
 # Advent of Code 2016
 
-**Not following advent calendar**. My verdict: This year's problems were slightly harder than 2015.
-Day 11 noticeably difficult. An approach smarter than DFS is needed. Favorite problem: day 24 by
-far. I knew how to solve it as soon as I read it, but it got me to implement A* and memoization in
-C and use them along with DFS. Another notable problem is day 19, with the correct data structure
-(circular linked lists) the solution is straightforward. C lacks array/string slicing which would
-have made the implementation simpler. Nevertheless, C feels great in 2026.
+**Not following advent calendar**. My verdict: This year's problems were slightly harder than 2015's. Day 11 was
+noticeably difficult; an approach smarter than DFS is necessary to solve the problem efficiently. My favorite problem
+was day 24 by far. The required methods were clear from the problem statement (pathfinding plus path optimization), and
+it led me to implement A* and memoization in C and use them in combination with DFS. Another notable problem is day 19:
+choosing the appropriate data structure (circular linked lists) makes the solution straightforward. However, C lacks
+array slicing, which meant that more than one pointer to the linked list was needed. That said, programming in C feels
+great in 2026.
 
 ![Calendar](aoc2016.gif)
 
