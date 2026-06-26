@@ -8,10 +8,10 @@ Make sure you have Rust installed: https://rustup.rs/
 
 ```bash
 # Run a specific day's solution
-cargo run  -p aoc2017 --bin day01
+cargo run -p aoc2017 --bin day01
 
 # Run with optimizations
-cargo run --release  -p aoc2018 --bin day15
+cargo run --release -p aoc2018 --bin day15
 
 # Run tests for a specific day
 cargo test -p aoc2017 --bin day01
