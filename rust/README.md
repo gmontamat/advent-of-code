@@ -7,16 +7,14 @@ Make sure you have Rust installed: https://rustup.rs/
 ## Running Solutions
 
 ```bash
-cd <year>  # eg. 2017
-
 # Run a specific day's solution
-cargo run --bin day01 -p aoc2017
+cargo run  -p aoc2017 --bin day01
 
 # Run with optimizations
-cargo run --release --bin day15 -p aoc2018
+cargo run --release  -p aoc2018 --bin day15
 
 # Run tests for a specific day
-cargo test --bin day01 -p aoc2017
+cargo test -p aoc2017 --bin day01
 ```
 
 ## Structure
