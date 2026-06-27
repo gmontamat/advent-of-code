@@ -33,3 +33,12 @@ pub fn read_examples(day: u8) -> Vec<String> {
         .map(|l| l.trim().to_string())
         .collect()
 }
+
+pub fn read_examples_file(name: &str) -> Vec<String> {
+    let path = format!("{}/examples/{name}.txt", env!("CARGO_MANIFEST_DIR"));
+    fs::read_to_string(&path)
+        .unwrap_or_else(|_| panic!("Failed to read example file: {}", path))
+        .lines()
+        .map(|l| l.trim().to_string())
+        .collect()
+}
