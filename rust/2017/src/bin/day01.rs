@@ -42,25 +42,21 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use aoc2017::read_examples;
 
     #[test]
     fn test_part1() {
-        let examples = read_examples(1);
-        assert_eq!(solve_part1(&examples[0]), 3);
-        assert_eq!(solve_part1(&examples[1]), 4);
-        assert_eq!(solve_part1(&examples[2]), 0);
-        assert_eq!(solve_part1(&examples[3]), 9);
+        assert_eq!(solve_part1("1122"), 3);
+        assert_eq!(solve_part1("1111"), 4);
+        assert_eq!(solve_part1("1234"), 0);
+        assert_eq!(solve_part1("91212129"), 9);
     }
 
     #[test]
     fn test_part2() {
-        let examples = read_examples(1);
-        assert_eq!(solve_part2(&examples[4]), 6);
-        assert_eq!(solve_part2(&examples[5]), 0);
-        assert_eq!(solve_part2(&examples[6]), 4);
-        assert_eq!(solve_part2(&examples[7]), 12);
-        assert_eq!(solve_part2(&examples[8]), 4);
-
+        assert_eq!(solve_part2("1212"), 6);
+        assert_eq!(solve_part2("1221"), 0);
+        assert_eq!(solve_part2("123425"), 4);
+        assert_eq!(solve_part2("123123"), 12);
+        assert_eq!(solve_part2("12131415"), 4);
     }
 }

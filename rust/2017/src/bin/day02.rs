@@ -52,12 +52,11 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use aoc2017::read_examples;
     use aoc2017::read_examples_file;
 
     #[test]
     fn test_part1() {
-        let spreadsheet = read_examples(2);
+        let spreadsheet = read_examples_file("day02p1");
         assert_eq!(solve_part1(spreadsheet), 18);
     }
 
