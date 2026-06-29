@@ -1,5 +1,5 @@
 input
-inputs
+**/inputs/*.txt
 
 # C
 *.out
