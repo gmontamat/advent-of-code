@@ -22,4 +22,5 @@ cargo test -p aoc2017 --bin day01
 Each year is a separate Cargo package within a workspace. Solutions are organized as
 binary targets in `src/bin/`, with shared utilities in `src/lib.rs`.
 
-Place your puzzle input in `inputs/dayXX.txt` and example inputs in `examples/dayXX.txt`.
+Place your puzzle input in `inputs/dayXX.txt`. Example inputs are available in
+the `examples/` directory; for unit tests, the input is typically kept in the code.
