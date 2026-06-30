@@ -23,5 +23,5 @@ Each year is a separate Cargo package within a workspace. Solutions are organize
 binary targets in `src/bin/`, with shared utilities in `src/lib.rs`.
 
 Place your puzzle input in `inputs/dayXX.txt`. Some example inputs are available in
-the `examples/` directory; for unit tests though, the input is typically kept in the
+the `examples/` directory; for unit tests, though, the input is typically kept in the
 code.
