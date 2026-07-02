@@ -52,7 +52,7 @@ fn main() {
 mod tests {
     use aoc2017::read_examples;
 
-use super::*;
+    use super::*;
 
     #[test]
     fn test_part1() {
