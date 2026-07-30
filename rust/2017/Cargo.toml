@@ -5,11 +5,3 @@ edition = "2024"
 
 [dependencies]
 regex = "1.11"
-
-[[bin]]
-name = "day01"
-path = "src/bin/day01.rs"
-
-[[bin]]
-name = "day02"
-path = "src/bin/day02.rs"
