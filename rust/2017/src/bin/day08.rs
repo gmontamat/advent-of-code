@@ -56,7 +56,7 @@ fn solve_part1(instructions: Vec<String>) -> i32 {
 
 fn solve_part2(instructions: Vec<String>) -> i32 {
     let mut registers: HashMap<String, i32> = HashMap::new();
-    let mut overall_max: i32 = i32::MIN;
+    let mut overall_max: i32 = 0;  // all registers initialized to 0
     // Run program (we initialize registers to 0 when not found)
     // <reg1> <inc or dec> <n: i32> if <reg2> <operator> <m: i32>
     for instruction in instructions {
