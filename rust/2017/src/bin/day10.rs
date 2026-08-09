@@ -13,10 +13,7 @@ fn reverse(mut circle: Vec<i32>, start: usize, length: usize) -> Vec<i32> {
 fn solve_part1(size: i32, input_lengths: Vec<i32>) -> i32 {
     let mut current_position: usize = 0;
     let mut skip_size: usize = 0;
-    let mut circle = Vec::new();
-    for i in 0..size {
-        circle.push(i);
-    }
+    let mut circle = (0..size).collect();
     for length in input_lengths {
         circle = reverse(circle, current_position, length as usize);
         // println!("{:?}", circle);
@@ -27,24 +24,38 @@ fn solve_part1(size: i32, input_lengths: Vec<i32>) -> i32 {
     circle.get(0).unwrap() * circle.get(1).unwrap()
 }
 
-fn solve_part2(_input: String) -> String {
+fn solve_part2(input: String) -> String {
     let mut current_position: usize = 0;
     let mut skip_size: usize = 0;
-    // Create circle array
-    let mut circle = Vec::new();
-    for i in 0..256 {
-        circle.push(i);
-    }
-    for i in 0..64 {
-        for length in input_lengths {
-            circle = reverse(circle, current_position, length as usize);
+    let mut circle = (0..256).collect();
+    let mut input_lengths: Vec<usize> = input.chars()
+        .map(|c| c as usize)
+        .collect();
+    input_lengths.push(17);
+    input_lengths.push(31);
+    input_lengths.push(73);
+    input_lengths.push(47);
+    input_lengths.push(23);
+    for _ in 0..64 {
+        for length in &input_lengths {
+            circle = reverse(circle, current_position, *length as usize);
             // println!("{:?}", circle);
-            current_position += length as usize + skip_size;
-            current_position %= size as usize;
+            current_position += *length as usize + skip_size;
+            current_position %= 256 as usize;
             skip_size += 1;
         }
     }
-    "".to_string()
+    // Dense hash
+    let mut hash = "".to_string();
+    for i in 0..16 {
+        let mut xored: u8 = circle.get(i * 16).unwrap().clone() as u8;
+        for j in 1..16 {
+            xored ^= circle.get(i * 16 + j).unwrap().clone() as u8;
+        }
+        let hex_padded = format!("{:02x}", xored); 
+        hash.push_str(&hex_padded);
+    }
+    hash
 }
 
 fn main() {
