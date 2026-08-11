@@ -2,7 +2,12 @@ use std::collections::{HashMap, HashSet};
 
 use aoc2017::read_inputs;
 
-fn dfs_reachable(graph: &HashMap<i32, Vec<i32>>, visited: &mut HashSet<i32>, node: i32, reachable: &mut HashSet<i32>) {
+fn dfs_reachable(
+    graph: &HashMap<i32, Vec<i32>>,
+    visited: &mut HashSet<i32>,
+    node: i32,
+    reachable: &mut HashSet<i32>
+) {
     visited.insert(node);
     reachable.insert(node);
 
@@ -25,8 +30,8 @@ fn solve_part1(data: Vec<String>) -> i32 {
     let mut graph: HashMap<i32, Vec<i32>> = HashMap::new();
     for row in data {
         let parts: Vec<String> = row.split(" <-> ")
-                                 .map(|s| s.to_string())
-                                 .collect();
+                                    .map(|s| s.to_string())
+                                    .collect();
         let node: i32 = parts[0].parse().unwrap();
         let neighbors: Vec<i32> = parts[1].split(", ")
                                           .map(|s: &str| s.parse::<i32>()
@@ -62,8 +67,8 @@ fn solve_part2(data: Vec<String>) -> i32 {
     let mut graph: HashMap<i32, Vec<i32>> = HashMap::new();
     for row in data {
         let parts: Vec<String> = row.split(" <-> ")
-                                 .map(|s| s.to_string())
-                                 .collect();
+                                    .map(|s| s.to_string())
+                                    .collect();
         let node: i32 = parts[0].parse().unwrap();
         let neighbors: Vec<i32> = parts[1].split(", ")
                                           .map(|s: &str| s.parse::<i32>()
