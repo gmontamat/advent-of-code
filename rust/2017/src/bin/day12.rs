@@ -55,8 +55,8 @@ fn dfs_all(graph: &HashMap<i32, Vec<i32>>) -> i32 {
         if reduced_graph.len() == 0 {
             break;
         }
-        let starting_node = reduced_graph.keys().next().unwrap();
-        dfs_reachable(graph, &mut visited, *starting_node, &mut reachable);
+        let starting_node = *reduced_graph.keys().next().unwrap();
+        dfs_reachable(graph, &mut visited, starting_node, &mut reachable);
         groups += 1;
     }
     groups
