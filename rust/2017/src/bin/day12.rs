@@ -2,27 +2,24 @@ use std::collections::{HashMap, HashSet};
 
 use aoc2017::read_inputs;
 
-fn dfs_reachable(
+fn dfs_visited(
     graph: &HashMap<i32, Vec<i32>>,
     visited: &mut HashSet<i32>,
-    node: i32,
-    reachable: &mut HashSet<i32>
+    node: i32
 ) {
     visited.insert(node);
-    reachable.insert(node);
 
     for &neighbor in &graph[&node] {
         if !visited.contains(&neighbor) {
-            dfs_reachable(graph, visited, neighbor, reachable);
+            dfs_visited(graph, visited, neighbor);
         }
     }
 }
 
-fn dfs(graph: &HashMap<i32, Vec<i32>>, starter_node: i32) -> i32 {
+fn get_cc_size(graph: &HashMap<i32, Vec<i32>>, node: i32) -> i32 {
     let mut visited: HashSet<i32> = HashSet::new();
-    let mut reachable: HashSet<i32> = HashSet::new();
-    dfs_reachable(graph, &mut visited, starter_node, &mut reachable);
-    reachable.len() as i32
+    dfs_visited(graph, &mut visited, node);
+    visited.len() as i32
 }
 
 fn solve_part1(data: Vec<String>) -> i32 {
@@ -39,24 +36,24 @@ fn solve_part1(data: Vec<String>) -> i32 {
                                           .collect();
         graph.insert(node, neighbors);
     }
-    // in graph theory lingo: reachable set
-    dfs(&graph, 0)
+    // in graph theory: connected component
+    get_cc_size(&graph, 0)
 }
 
-fn dfs_all(graph: &HashMap<i32, Vec<i32>>) -> i32 {
+fn count_ccs(graph: &HashMap<i32, Vec<i32>>) -> i32 {
     let mut visited: HashSet<i32> = HashSet::new();
-    let mut reachable: HashSet<i32> = HashSet::new();
     let mut groups = 0;
     loop {
         let mut reduced_graph = graph.clone();
-        for node in &reachable {
+        for node in &visited {
             reduced_graph.remove(&node);
         }
         if reduced_graph.len() == 0 {
+            // all connected components (grops) found
             break;
         }
-        let starting_node = *reduced_graph.keys().next().unwrap();
-        dfs_reachable(graph, &mut visited, starting_node, &mut reachable);
+        let node = *reduced_graph.keys().next().unwrap();
+        dfs_visited(graph, &mut visited, node);
         groups += 1;
     }
     groups
@@ -76,8 +73,8 @@ fn solve_part2(data: Vec<String>) -> i32 {
                                           .collect();
         graph.insert(node, neighbors);
     }
-    // all reachable sets
-    dfs_all(&graph)
+    // in graph theory: count all connected components of a graph
+    count_ccs(&graph)
 }
 
 fn main() {
