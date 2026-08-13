@@ -49,7 +49,7 @@ fn count_ccs(graph: &HashMap<i32, Vec<i32>>) -> i32 {
             reduced_graph.remove(&node);
         }
         if reduced_graph.len() == 0 {
-            // all connected components (grops) found
+            // all connected components (groups) found
             break;
         }
         let node = *reduced_graph.keys().next().unwrap();
