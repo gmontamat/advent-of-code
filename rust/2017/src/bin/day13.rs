@@ -60,9 +60,9 @@ fn solve_part2(data: Vec<String>) -> i32 {
             if !layer_depth.contains_key(&layer) {
                 continue;
             }
-            let t = layer + delay;
-            let depth = *layer_depth.get(&layer).unwrap() - 1;
-            let firewall = depth - (depth - t % (2 * depth)).abs();
+            let t = layer + delay;  // when we reach this layer
+            let max_idx = *layer_depth.get(&layer).unwrap() - 1;
+            let firewall = max_idx - (max_idx - t % (2 * max_idx)).abs();
             if firewall == 0 {
                 caught = true;
                 break;
