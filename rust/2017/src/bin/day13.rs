@@ -41,56 +41,35 @@ fn solve_part1(data: Vec<String>) -> i32 {
 }
 
 fn solve_part2(data: Vec<String>) -> i32 {
-    let mut layers: HashMap<i32, i32> = HashMap::new();
-    let mut firewall_start: HashMap<i32, i32> = HashMap::new();
-    let mut direction_start: HashMap<i32, i32> = HashMap::new();
+    let mut layer_depth: HashMap<i32, i32> = HashMap::new();
     for row in data {
         let row: Vec<String> = row.split(": ")
                                   .map(|s| s.to_string())
                                   .collect();
         let layer: i32 = row[0].parse().unwrap();
         let depth: i32 = row[1].parse().unwrap();
-        layers.insert(layer, depth);
-        firewall_start.insert(layer, 0);
-        direction_start.insert(layer, 1);
+        layer_depth.insert(layer, depth);
     }
-    let size: &i32 = layers.keys().max().unwrap();
-    // Simulate crossing firewall
+    let layers = *layer_depth.keys().max().unwrap();
+    // Simulation is slow
+    // Use formula: firewall_idx = N - abs(N - (t%(2N))
     let mut delay = 0;
     loop {
-        let mut firewall = firewall_start.clone();
-        let mut direction = direction_start.clone();
-        for _ in 0..delay {
-            // Update firewall location
-            for i in firewall.clone().keys() {
-                let firewall_position = *firewall.get(&i).unwrap();
-                if firewall_position == *layers.get(i).unwrap() - 1 {
-                    direction.insert(*i, -1);  // reached layer depth
-                } else if firewall_position == 0 {
-                    direction.insert(*i, 1);   // reached layer start
-                }
-                firewall.insert(*i, firewall_position + *direction.get(&i).unwrap());
+        let mut caught = false;
+        for layer in 0..layers+1 {
+            if !layer_depth.contains_key(&layer) {
+                continue;
+            }
+            let t = layer + delay;
+            let depth = *layer_depth.get(&layer).unwrap() - 1;
+            let firewall = depth - (depth - t % (2 * depth)).abs();
+            if firewall == 0 {
+                caught = true;
+                break;
             }
         }
-        for position in 0..size+1 {
-            if firewall.contains_key(&position) {
-                if *firewall.get(&position).unwrap() == 0 {
-                    break;
-                }
-            }
-            // Update firewall location
-            for i in firewall.clone().keys() {
-                let firewall_position = *firewall.get(&i).unwrap();
-                if firewall_position == *layers.get(i).unwrap() - 1 {
-                    direction.insert(*i, -1);  // reached layer depth
-                } else if firewall_position == 0 {
-                    direction.insert(*i, 1);   // reached layer start
-                }
-                firewall.insert(*i, firewall_position + *direction.get(&i).unwrap());
-            }
-            if position == *size {
-                return delay;
-            }
+        if !caught {
+            return delay;
         }
         delay += 1;
     }
