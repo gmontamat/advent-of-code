@@ -137,8 +137,8 @@ fn solve_part2(input: String) -> i32 {
         for col in 0..128 {
             if grid[row][col] == '1' {
                 total += 1;
+                floodfill(&mut grid, row, col);
             }
-            floodfill(&mut grid, row, col);
         }
     }
     total
