@@ -124,8 +124,8 @@ fn solve_part2(programs: usize, moves: Vec<String>, times: u32) -> String {
 
 fn main() {
     let moves: Vec<String> = read_input(16).split(",")
-                                                .map(|s| s.to_string())
-                                                .collect();
+                                           .map(|s| s.to_string())
+                                           .collect();
     println!("Part 1: {}", solve_part1(16, moves.clone()));
     println!("Part 2: {}", solve_part2(16, moves, 1_000_000_000));
 }
@@ -139,16 +139,16 @@ mod tests {
     #[test]
     fn test_part1() {
         let moves = read_example(16).split(",")
-                                                      .map(|s| s.to_string())
-                                                      .collect();
+                                    .map(|s| s.to_string())
+                                    .collect();
         assert_eq!(solve_part1(5, moves), "baedc".to_string());
     }
 
     #[test]
     fn test_part2() {
         let moves = read_example(16).split(",")
-                                                      .map(|s| s.to_string())
-                                                      .collect();
+                                    .map(|s| s.to_string())
+                                    .collect();
         assert_eq!(solve_part2(5, moves, 2), "ceadb".to_string());
     }
 }
